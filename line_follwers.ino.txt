@@ -1,0 +1,102 @@
+// Motor pins
+#define ENA 14
+#define IN1 27
+#define IN2 26
+#define ENB 25
+#define IN3 33
+#define IN4 32
+
+// IR sensors
+#define LEFT_SENSOR 34
+#define RIGHT_SENSOR 35
+
+// Ultrasonic
+#define TRIG 5
+#define ECHO 18
+
+long duration;
+int distance;
+
+void setup() {
+  pinMode(ENA, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENB, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  pinMode(LEFT_SENSOR, INPUT);
+  pinMode(RIGHT_SENSOR, INPUT);
+
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+
+  Serial.begin(115200);
+}
+
+void loop() {
+  distance = getDistance();
+
+  // Obstacle detection
+  if (distance < 15) {
+    stopMotors();
+    delay(500);
+    return;
+  }
+
+  int left = digitalRead(LEFT_SENSOR);
+  int right = digitalRead(RIGHT_SENSOR);
+
+  // Line following logic
+  if (left == 0 && right == 0) {
+    forward();
+  } else if (left == 1 && right == 0) {
+    turnLeft();
+  } else if (left == 0 && right == 1) {
+    turnRight();
+  } else {
+    stopMotors();
+  }
+}
+
+// Motor functions
+void forward() {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void turnLeft() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void turnRight() {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
+
+void stopMotors() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
+
+// Ultrasonic function
+int getDistance() {
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  duration = pulseIn(ECHO, HIGH);
+  distance = duration * 0.034 / 2;
+  return distance;
+}
