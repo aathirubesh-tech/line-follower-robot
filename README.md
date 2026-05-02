@@ -19,7 +19,10 @@ This project is a Line Follower Robot built using ESP32, IR sensors, and an ultr
 - Smooth Movement using PID Control
 
 ## 🔌 Connections
-Will be updated soon.
+
+## Circuit Connection
+The circuit connection diagram is included in this repository.
+Refer to the image below:
 
 ## 💻 Code
 The complete ESP32 code for line following and obstacle avoidance is included in this repository.
