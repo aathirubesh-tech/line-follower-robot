@@ -24,9 +24,6 @@ Will be updated soon.
 ## 💻 Code
 Code will be uploaded.
 
-## 📸 Output
-(Add robot images here)
-
 ## 🚀 Future Improvements
 - Camera-based tracking
 - AI integration
