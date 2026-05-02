@@ -22,7 +22,8 @@ This project is a Line Follower Robot built using ESP32, IR sensors, and an ultr
 Will be updated soon.
 
 ## 💻 Code
-Code will be uploaded.
+## Code
+The complete ESP32 code for line following and obstacle avoidance is included in this repository.
 
 ## 🚀 Future Improvements
 - Camera-based tracking
